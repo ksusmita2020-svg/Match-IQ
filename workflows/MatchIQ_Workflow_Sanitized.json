@@ -1,0 +1,1351 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -3632,
+        848
+      ],
+      "id": "7c9a64bb-a1ef-478b-9f3c-203f304aa160",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "dataTableId": {
+          "__rl": true,
+          "value": "ZUP7Q9Y2Nq75a8ni",
+          "mode": "list",
+          "cachedResultName": "MatchIQ_Candidate_Profile",
+          "cachedResultUrl": "/projects/v5852sEzR2hUQ9lJ/datatables/ZUP7Q9Y2Nq75a8ni"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "candidate_id",
+              "keyValue": "Susmita Kayal"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "candidate_id": "Susmita Kayal",
+            "candidate_profile": "={{ $('Agent 2 - CV Intelligence').item.json.output }}",
+            "updated_at": "={{ $now.toISO() }}",
+            "cv_version": "={{ $('CV Version').item.json.cv_version }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "candidate_id",
+              "displayName": "candidate_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "candidate_profile",
+              "displayName": "candidate_profile",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "updated_at",
+              "displayName": "updated_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "cv_version",
+              "displayName": "cv_version",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        -1664,
+        560
+      ],
+      "id": "963db8e0-4daa-4f1b-8482-66125913fc89",
+      "name": "Upsert row(s)"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-oss-120b",
+        "options": {
+          "maxTokensToSample": 1100,
+          "temperature": 0.3
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -1936,
+        720
+      ],
+      "id": "e8fd346a-88ae-4197-93e8-c3f9b5f20111",
+      "name": "Groq - Agent 2",
+      "credentials": {
+        "groqApi": {
+          "id": "BNVEcVvwITLwCW3f",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "ZUP7Q9Y2Nq75a8ni",
+          "mode": "list",
+          "cachedResultName": "MatchIQ_Candidate_Profile",
+          "cachedResultUrl": "/projects/v5852sEzR2hUQ9lJ/datatables/ZUP7Q9Y2Nq75a8ni"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "candidate_id",
+              "keyValue": "Susmita Kayal"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        -3008,
+        848
+      ],
+      "id": "9820b63c-b51e-47c8-b98e-e1851ca98d75",
+      "name": "Get row(s)"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1bdQASzBXsNj35HErdylH_xxxxxxxxxxxxxx",
+          "mode": "list",
+          "cachedResultName": "MatchIQ Job Intelligence",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1bdQASzBXsNj35HErdylH_xO3rvXqvlgpEnQOdOnEi7U/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1bdQASzBXsNj35HErdylH_xO3rvXqvlgpEnQOdOnEi7U/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [
+            "MatchIQ Job Intelligence"
+          ],
+          "schema": [
+            {
+              "id": "run_timestamp",
+              "displayName": "run_timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "job_key",
+              "displayName": "job_key",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "country",
+              "displayName": "country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "location",
+              "displayName": "location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "role",
+              "displayName": "role",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "company",
+              "displayName": "company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "search_cluster",
+              "displayName": "search_cluster",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "search_query",
+              "displayName": "search_query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "date_posted",
+              "displayName": "date_posted",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "linkedin_url",
+              "displayName": "linkedin_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "scraper_match_score",
+              "displayName": "scraper_match_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "opportunity_gate_score",
+              "displayName": "opportunity_gate_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "talent_shortage_score",
+              "displayName": "talent_shortage_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "opportunity_status",
+              "displayName": "opportunity_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "agent1_status",
+              "displayName": "agent1_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "agent1_role_analysis",
+              "displayName": "agent1_role_analysis",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "candidate_id",
+              "displayName": "candidate_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "agent2_status",
+              "displayName": "agent2_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "agent3_status",
+              "displayName": "agent3_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "agent3_overall_fit_score",
+              "displayName": "agent3_overall_fit_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "agent3_fit_level",
+              "displayName": "agent3_fit_level",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "agent3_recommendation",
+              "displayName": "agent3_recommendation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "agent3_full_assessment",
+              "displayName": "agent3_full_assessment",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "failure_reason",
+              "displayName": "failure_reason",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "createdAt",
+              "displayName": "createdAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "updatedAt",
+              "displayName": "updatedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1024,
+        864
+      ],
+      "id": "9f50d7a5-5d6a-499e-9e83-c5595966f969",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleApi": {
+          "id": "X728Yk5MqQml0Nw6",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "get",
+        "documentURL": "https://docs.google.com/document/d/1q7cCu257gZ2GbgyTEfzFr8vQxdR41cmLkCrmejKs3Is/edit?tab=t.0"
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        -2752,
+        544
+      ],
+      "id": "30eb5209-1910-4273-ab43-13805aaa0d5a",
+      "name": "Get a document",
+      "credentials": {
+        "googleApi": {
+          "id": "X728Yk5MqQml0Nw6",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Analyze the following CV for MatchIQ.\n\nCV TEXT:\n{{ $('Get a document').item.json.content }}\n\nCreate a compact reusable Candidate Evidence Profile for later role-fit assessment.\n\nUse ONLY information explicitly stated in the CV. Never infer or invent capabilities, technologies, responsibilities, authority, qualifications, certifications, budget ownership, people management, or technical experience.\n\nDo not assess fit for any job.\nDo not score the candidate.\nDo not recommend jobs.\n\nExtract only high-value, non-duplicated evidence under these headings:\n\nPROFILE\n2–3 concise lines covering career progression, professional focus, and seniority.\n\nCORE EXPERTISE\n6–10 strongest explicitly evidenced functional capabilities.\n\nCAREER EVIDENCE\n8–12 strongest roles, responsibilities, programmes, and projects. Prioritize ownership, scope, and distinctive experience.\n\nDOMAIN EVIDENCE\n5–8 evidenced industries, business domains, regulatory environments, or organisational contexts.\n\nLEADERSHIP & STAKEHOLDERS\n5–8 evidenced examples of leadership, programme/product ownership, cross-functional delivery, senior stakeholder engagement, international delivery, or change leadership. Distinguish leading, owning, coordinating, contributing, and participating.\n\nTECHNICAL & DIGITAL\n8–12 explicitly evidenced technologies, platforms, AI/data capabilities, automation tools, and methodologies.\n\nGOVERNANCE & REGULATORY\n5–8 explicit examples of AI governance, risk, compliance, controls, assurance, regulatory frameworks, or operating models.\n\nQUANTIFIED ACHIEVEMENTS\n5–8 strongest measurable outcomes. Preserve the original figures.\n\nSENIORITY\n2–3 concise lines describing the level of responsibility explicitly demonstrated.\n\nEVIDENCE GAPS\nUp to 5 important areas where the CV provides limited or no explicit evidence. Do not treat absence of evidence as proof that the candidate lacks the capability.\n\nRules:\n- Prefer evidence over narrative.\n- Preserve exact numbers, role titles, industries, technologies, frameworks, and certifications.\n- Remove duplicates.\n- Do not convert participation into ownership.\n- Do not convert a team size into people management.\n- Do not infer cloud, cybersecurity, security architecture, MLOps, hands-on engineering, or budget ownership unless explicitly stated.\n- If evidence is ambiguous, omit it.\n- Return plain text.\n- Use exactly the ten headings above.\n- Keep the complete profile concise, ideally under 1,000 tokens.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -1936,
+        560
+      ],
+      "id": "1869fd8c-2edc-4002-86b8-c9d48606fd62",
+      "name": "Agent 2 - CV Intelligence"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const content = String($json.content ?? '');\n\nif (!content.trim()) {\n  throw new Error('Google Docs returned an empty CV.');\n}\n\n// Deterministic hash of the CV text.\n// Identical CV text = identical version.\n// Changed CV text = different version.\nlet hash1 = 2166136261;\nlet hash2 = 2166136261 ^ 0x9e3779b9;\n\nfor (let i = 0; i < content.length; i++) {\n  const code = content.charCodeAt(i);\n\n  hash1 ^= code;\n  hash1 = Math.imul(hash1, 16777619);\n\n  hash2 ^= (code + i);\n  hash2 = Math.imul(hash2, 2246822519);\n}\n\nconst part1 = (hash1 >>> 0).toString(16).padStart(8, '0');\nconst part2 = (hash2 >>> 0).toString(16).padStart(8, '0');\n\nreturn {\n  json: {\n    ...$json,\n    candidate_id: 'Susmita Kayal',\n    cv_version: `${part1}-${part2}`\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2560,
+        544
+      ],
+      "id": "fc384f8b-b87e-4047-b84d-78a405f3789f",
+      "name": "CV Version"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "ZUP7Q9Y2Nq75a8ni",
+          "mode": "list",
+          "cachedResultName": "MatchIQ_Candidate_Profile",
+          "cachedResultUrl": "/projects/v5852sEzR2hUQ9lJ/datatables/ZUP7Q9Y2Nq75a8ni"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "candidate_id",
+              "keyValue": "Susmita Kayal"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        -2368,
+        544
+      ],
+      "id": "9cebef61-6e73-4d82-b1a2-b9bd667a54a2",
+      "name": "Get Candidate Profile Cache",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "9582d4a6-70b8-4a21-9715-eab6b3e1aa83",
+              "leftValue": "={{ $json.cv_version }}",
+              "rightValue": "={{ $('CV Version').item.json.cv_version }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "89a5429c-6b59-4a8f-aaa0-9b13a36feb24",
+              "leftValue": "={{ $json.candidate_profile }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -2176,
+        544
+      ],
+      "id": "ab3c76d4-b0f1-4db9-a9b1-99988aadee11",
+      "name": "CV Version Cached?"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"openai/gpt-oss-120b\",\n  \"temperature\": 0.2,\n  \"reasoning_effort\": \"low\",\n  \"max_completion_tokens\": 3500,\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are Agent 3 for MatchIQ. You are an experienced HR professional and Hiring Manager assessing one specific job against one specific candidate. The deterministic MatchIQ layer has already performed broad job matching. Do not redo keyword matching. Interpret the supplied job requirements and candidate evidence and produce a detailed, role-specific hiring assessment. Use ONLY the supplied job information and candidate evidence. Do not invent skills, tools, languages, domains, responsibilities, certifications, leadership scope, or experience. Evidence states: PRESENT = clearly demonstrated; PARTIAL = some relevant evidence exists but depth, scope, ownership or recency is incomplete; MISSING = the job requires it and candidate evidence does not demonstrate it; NOT_EVIDENCED = the requirement cannot be confirmed from the supplied candidate evidence. MISSING and NOT_EVIDENCED do not prove the candidate lacks the capability. Distinguish direct experience from transferable experience, participation from ownership, technical exposure from hands-on expertise, and domain familiarity from deep specialization. Treat explicit language and experience requirements seriously. Be specific to this particular role. Avoid repeating the same point across sections. Prioritize material hiring implications. Return valid JSON only.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": {{ JSON.stringify(\n        \"Assess this candidate for this specific role using the supplied data.\\n\\n\" +\n        \"JOB AND CANDIDATE DATA:\\n\" +\n        JSON.stringify($json) +\n        \"\\n\\nIMPORTANT OUTPUT REQUIREMENT:\\n\" +\n        \"You MUST return every required field defined by the JSON schema.\\n\" +\n        \"The response is invalid unless ALL of these fields are present:\\n\" +\n        \"overall_fit_score\\n\" +\n        \"fit_level\\n\" +\n        \"recommendation\\n\" +\n        \"overall_hiring_assessment\\n\" +\n        \"skills_tools_mapping\\n\" +\n        \"language_mapping\\n\" +\n        \"domain_mapping\\n\" +\n        \"functional_responsibility_mapping\\n\" +\n        \"transferable_experience\\n\" +\n        \"gaps_risks_evidence_gaps\\n\" +\n        \"hiring_manager_view\\n\" +\n        \"executive_summary\\n\\n\" +\n        \"You MUST include executive_summary as the final field.\\n\" +\n        \"executive_summary must contain 80-120 words.\\n\" +\n        \"Do not stop generation before all required fields are completed.\\n\" +\n        \"Return JSON only.\\n\\n\" +\n\n        \"Produce the following sections.\\n\\n\" +\n\n        \"1. OVERALL HIRING ASSESSMENT\\n\" +\n        \"Explain why the candidate is or is not a match. Consider role relevance, seniority, experience, functional responsibilities, skills, tools, languages, domain exposure, governance/risk requirements and transferable experience.\\n\\n\" +\n\n        \"2. SKILLS AND TOOLS MAPPING\\n\" +\n        \"Identify the important hiring-relevant skills, capabilities, methodologies, technologies, platforms, systems, tools, frameworks or techniques required by the role. For each important item provide requirement, category, status, candidate evidence and assessment. Do not list incidental keywords. Prioritize meaningful hiring-relevant requirements.\\n\\n\" +\n\n        \"3. LANGUAGE MAPPING\\n\" +\n        \"Identify explicit language requirements. For each provide language, required level or specification, status, candidate evidence and assessment. Do not assume language proficiency.\\n\\n\" +\n\n        \"4. DOMAIN MAPPING\\n\" +\n        \"Identify important domain knowledge required by the role. For each provide required domain, status, candidate evidence and assessment. Distinguish direct domain experience from transferable exposure.\\n\\n\" +\n\n        \"5. FUNCTIONAL RESPONSIBILITY MAPPING\\n\" +\n        \"Compare the principal responsibilities of the job against demonstrated candidate responsibilities and experience. For each major responsibility provide job responsibility, candidate evidence, status and assessment. Focus on actual work performed, ownership, programme scope, stakeholder responsibilities, governance, delivery, process and leadership responsibilities.\\n\\n\" +\n\n        \"6. TRANSFERABLE EXPERIENCE\\n\" +\n        \"Identify experience that is not an exact match but credibly transfers. For each provide candidate experience, target requirement, transfer reason and limitation.\\n\\n\" +\n\n        \"7. GAPS, RISKS AND EVIDENCE GAPS\\n\" +\n        \"Identify material shortcomings. Separate genuine capability gaps supported by evidence, areas where evidence is insufficient, and potential hiring risks caused by scope, seniority, domain depth, language, tools or responsibility mismatch.\\n\\n\" +\n\n        \"8. HIRING MANAGER VIEW\\n\" +\n        \"Give a practical shortlist decision, why, interview validation points and progression blockers. Do not be artificially positive.\\n\\n\" +\n\n        \"9. FINAL RECOMMENDATION\\n\" +\n        \"Provide overall_fit_score from 0 to 100. Fit levels: 0-39 Poor, 40-59 Limited, 60-74 Partial, 75-89 Good, 90-100 Excellent. Recommendation must be one of: Strongly Proceed, Proceed, Proceed with Targeted Validation, Hold, Do Not Proceed. The score must reflect the overall evidence and should not simply copy the deterministic MatchIQ score.\\n\\n\" +\n\n        \"10. EXECUTIVE SUMMARY\\n\" +\n        \"Write an 80-120 word summary explaining why the candidate fits, where the candidate falls short, the most important transferable strengths and the most important validation points.\\n\\n\" +\n\n        \"FINAL CHECK BEFORE RETURNING:\\n\" +\n        \"Verify that executive_summary exists and is a non-empty string. Verify that hiring_manager_view contains shortlist_decision, why, interview_validation_points and progression_blockers. Verify that all other required fields are present. Return JSON only.\"\n      ) }}\n    }\n  ],\n  \"response_format\": {\n    \"type\": \"json_schema\",\n    \"json_schema\": {\n      \"name\": \"matchiq_role_fit\",\n      \"strict\": true,\n      \"schema\": {\n        \"type\": \"object\",\n        \"additionalProperties\": false,\n        \"required\": [\n          \"overall_fit_score\",\n          \"fit_level\",\n          \"recommendation\",\n          \"overall_hiring_assessment\",\n          \"skills_tools_mapping\",\n          \"language_mapping\",\n          \"domain_mapping\",\n          \"functional_responsibility_mapping\",\n          \"transferable_experience\",\n          \"gaps_risks_evidence_gaps\",\n          \"hiring_manager_view\",\n          \"executive_summary\"\n        ],\n        \"properties\": {\n          \"overall_fit_score\": {\n            \"type\": \"number\",\n            \"minimum\": 0,\n            \"maximum\": 100\n          },\n          \"fit_level\": {\n            \"type\": \"string\"\n          },\n          \"recommendation\": {\n            \"type\": \"string\"\n          },\n          \"overall_hiring_assessment\": {\n            \"type\": \"string\"\n          },\n          \"skills_tools_mapping\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"object\",\n              \"additionalProperties\": false,\n              \"required\": [\n                \"requirement\",\n                \"category\",\n                \"status\",\n                \"candidate_evidence\",\n                \"assessment\"\n              ],\n              \"properties\": {\n                \"requirement\": {\n                  \"type\": \"string\"\n                },\n                \"category\": {\n                  \"type\": \"string\"\n                },\n                \"status\": {\n                  \"type\": \"string\"\n                },\n                \"candidate_evidence\": {\n                  \"type\": \"string\"\n                },\n                \"assessment\": {\n                  \"type\": \"string\"\n                }\n              }\n            }\n          },\n          \"language_mapping\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"object\",\n              \"additionalProperties\": false,\n              \"required\": [\n                \"language\",\n                \"required_level\",\n                \"status\",\n                \"candidate_evidence\",\n                \"assessment\"\n              ],\n              \"properties\": {\n                \"language\": {\n                  \"type\": \"string\"\n                },\n                \"required_level\": {\n                  \"type\": \"string\"\n                },\n                \"status\": {\n                  \"type\": \"string\"\n                },\n                \"candidate_evidence\": {\n                  \"type\": \"string\"\n                },\n                \"assessment\": {\n                  \"type\": \"string\"\n                }\n              }\n            }\n          },\n          \"domain_mapping\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"object\",\n              \"additionalProperties\": false,\n              \"required\": [\n                \"required_domain\",\n                \"status\",\n                \"candidate_evidence\",\n                \"assessment\"\n              ],\n              \"properties\": {\n                \"required_domain\": {\n                  \"type\": \"string\"\n                },\n                \"status\": {\n                  \"type\": \"string\"\n                },\n                \"candidate_evidence\": {\n                  \"type\": \"string\"\n                },\n                \"assessment\": {\n                  \"type\": \"string\"\n                }\n              }\n            }\n          },\n          \"functional_responsibility_mapping\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"object\",\n              \"additionalProperties\": false,\n              \"required\": [\n                \"job_responsibility\",\n                \"candidate_evidence\",\n                \"status\",\n                \"assessment\"\n              ],\n              \"properties\": {\n                \"job_responsibility\": {\n                  \"type\": \"string\"\n                },\n                \"candidate_evidence\": {\n                  \"type\": \"string\"\n                },\n                \"status\": {\n                  \"type\": \"string\"\n                },\n                \"assessment\": {\n                  \"type\": \"string\"\n                }\n              }\n            }\n          },\n          \"transferable_experience\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"object\",\n              \"additionalProperties\": false,\n              \"required\": [\n                \"candidate_experience\",\n                \"target_requirement\",\n                \"transfer_reason\",\n                \"limitation\"\n              ],\n              \"properties\": {\n                \"candidate_experience\": {\n                  \"type\": \"string\"\n                },\n                \"target_requirement\": {\n                  \"type\": \"string\"\n                },\n                \"transfer_reason\": {\n                  \"type\": \"string\"\n                },\n                \"limitation\": {\n                  \"type\": \"string\"\n                }\n              }\n            }\n          },\n          \"gaps_risks_evidence_gaps\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"object\",\n              \"additionalProperties\": false,\n              \"required\": [\n                \"type\",\n                \"issue\",\n                \"impact\",\n                \"assessment\"\n              ],\n              \"properties\": {\n                \"type\": {\n                  \"type\": \"string\"\n                },\n                \"issue\": {\n                  \"type\": \"string\"\n                },\n                \"impact\": {\n                  \"type\": \"string\"\n                },\n                \"assessment\": {\n                  \"type\": \"string\"\n                }\n              }\n            }\n          },\n          \"hiring_manager_view\": {\n            \"type\": \"object\",\n            \"additionalProperties\": false,\n            \"required\": [\n              \"shortlist_decision\",\n              \"why\",\n              \"interview_validation_points\",\n              \"progression_blockers\"\n            ],\n            \"properties\": {\n              \"shortlist_decision\": {\n                \"type\": \"string\"\n              },\n              \"why\": {\n                \"type\": \"string\"\n              },\n              \"interview_validation_points\": {\n                \"type\": \"array\",\n                \"items\": {\n                  \"type\": \"string\"\n                }\n              },\n              \"progression_blockers\": {\n                \"type\": \"array\",\n                \"items\": {\n                  \"type\": \"string\"\n                }\n              }\n            }\n          },\n          \"executive_summary\": {\n            \"type\": \"string\"\n          }\n        }\n      }\n    }\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -1792,
+        864
+      ],
+      "id": "8272828c-f252-4f45-8554-aeb62264c25f",
+      "name": "Agent 3 - Groq HTTP",
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "xxxxxxxxxx",
+          "name": "Bearer Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const content = $json.choices?.[0]?.message?.content;\n\nif (!content) {\n  throw new Error('Groq Role Fit returned no message content.');\n}\n\nlet parsed;\n\ntry {\n  parsed = JSON.parse(content);\n} catch (error) {\n  throw new Error(\n    'Could not parse Groq Role Fit JSON: ' + error.message\n  );\n}\n\nconst requiredFields = [\n  'overall_fit_score',\n  'fit_level',\n  'recommendation',\n  'overall_hiring_assessment',\n  'skills_tools_mapping',\n  'language_mapping',\n  'domain_mapping',\n  'functional_responsibility_mapping',\n  'transferable_experience',\n  'gaps_risks_evidence_gaps',\n  'hiring_manager_view',\n  'executive_summary'\n];\n\nfor (const field of requiredFields) {\n  if (!(field in parsed)) {\n    throw new Error(\n      `Groq Role Fit response is missing required field: ${field}`\n    );\n  }\n}\n\nif (\n  typeof parsed.overall_fit_score !== 'number' ||\n  parsed.overall_fit_score < 0 ||\n  parsed.overall_fit_score > 100\n) {\n  throw new Error('Invalid overall_fit_score returned by Groq.');\n}\n\nif (typeof parsed.fit_level !== 'string') {\n  throw new Error('fit_level must be a string.');\n}\n\nif (typeof parsed.recommendation !== 'string') {\n  throw new Error('recommendation must be a string.');\n}\n\nif (typeof parsed.overall_hiring_assessment !== 'string') {\n  throw new Error(\n    'overall_hiring_assessment must be a string.'\n  );\n}\n\nconst arrayFields = [\n  'skills_tools_mapping',\n  'language_mapping',\n  'domain_mapping',\n  'functional_responsibility_mapping',\n  'transferable_experience',\n  'gaps_risks_evidence_gaps'\n];\n\nfor (const field of arrayFields) {\n  if (!Array.isArray(parsed[field])) {\n    throw new Error(`${field} must be an array.`);\n  }\n}\n\nif (\n  typeof parsed.hiring_manager_view !== 'object' ||\n  parsed.hiring_manager_view === null ||\n  Array.isArray(parsed.hiring_manager_view)\n) {\n  throw new Error('hiring_manager_view must be an object.');\n}\n\nconst hiringManagerFields = [\n  'shortlist_decision',\n  'why',\n  'interview_validation_points',\n  'progression_blockers'\n];\n\nfor (const field of hiringManagerFields) {\n  if (!(field in parsed.hiring_manager_view)) {\n    throw new Error(\n      `hiring_manager_view is missing required field: ${field}`\n    );\n  }\n}\n\nif (\n  !Array.isArray(\n    parsed.hiring_manager_view.interview_validation_points\n  )\n) {\n  throw new Error(\n    'hiring_manager_view.interview_validation_points must be an array.'\n  );\n}\n\nif (\n  !Array.isArray(\n    parsed.hiring_manager_view.progression_blockers\n  )\n) {\n  throw new Error(\n    'hiring_manager_view.progression_blockers must be an array.'\n  );\n}\n\nif (typeof parsed.executive_summary !== 'string') {\n  throw new Error('executive_summary must be a string.');\n}\n\nreturn {\n  json: {\n    ...$json,\n    output: parsed\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1600,
+        864
+      ],
+      "id": "14c23b29-d9cd-4141-adb9-22e31dd1d57e",
+      "name": "Parse Role Fit"
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "dataTableId": {
+          "__rl": true,
+          "value": "X1BDo9VpeQNuZ5Bk",
+          "mode": "list",
+          "cachedResultName": "MatchIQ_Master_Job",
+          "cachedResultUrl": "/projects/v5852sEzR2hUQ9lJ/datatables/X1BDo9VpeQNuZ5Bk"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "job_key",
+              "keyValue": "=$('Prepare Agent 3 Context').item.json.FIELD_NAME"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "country": "={{ $('Prepare Agent 3 Context').item.json.country }}",
+            "location": "={{ $('Prepare Agent 3 Context').item.json.location }}",
+            "role": "={{ $('Prepare Agent 3 Context').item.json.role }}",
+            "company": "={{ $('Prepare Agent 3 Context').item.json.company }}",
+            "search_cluster": "=$('Prepare Agent 3 Context').item.json.job_intelligence.search_cluster",
+            "search_query": "=$('Prepare Agent 3 Context').item.json.job_intelligence.search_query",
+            "date_posted": "=$('Prepare Agent 3 Context').item.json.job_intelligence.date_posted",
+            "linkedin_url": "=$('Prepare Agent 3 Context').item.json.job_intelligence.linkedin_url",
+            "scraper_match_score": "={{ Number($('Prepare Agent 3 Context').item.json.job_intelligence.match_score) }}",
+            "opportunity_gate_score": "={{ Number($('Prepare Agent 3 Context').item.json.job_intelligence.opportunity_gate_score) }}",
+            "talent_shortage_score": "={{ Number($('Prepare Agent 3 Context').item.json.job_intelligence.match_score) }}",
+            "job_key": "={{ $('Prepare Agent 3 Context').item.json.job_key }}",
+            "run_timestamp": "2026-09-13T23:03:27",
+            "agent2_status": "={{ $('Prepare Agent 3 Context').first().json.job_intelligence.agent2_status }}",
+            "candidate_id": "={{ $('Prepare Agent 3 Context').first().json.candidate_id }}",
+            "agent3_status": "SUCCESS",
+            "agent3_fit_level": "={{ $json.output.fit_level }}",
+            "agent3_overall_fit_score": "={{ $json.output.overall_fit_score }}",
+            "agent3_recommendation": "={{ $json.output.recommendation }}",
+            "agent3_full_assessment": "={{ JSON.stringify($json.output) }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "run_timestamp",
+              "displayName": "run_timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "job_key",
+              "displayName": "job_key",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "country",
+              "displayName": "country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "location",
+              "displayName": "location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "role",
+              "displayName": "role",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "company",
+              "displayName": "company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "search_cluster",
+              "displayName": "search_cluster",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "search_query",
+              "displayName": "search_query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "date_posted",
+              "displayName": "date_posted",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "linkedin_url",
+              "displayName": "linkedin_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "scraper_match_score",
+              "displayName": "scraper_match_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "opportunity_gate_score",
+              "displayName": "opportunity_gate_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "talent_shortage_score",
+              "displayName": "talent_shortage_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "opportunity_status",
+              "displayName": "opportunity_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "agent1_status",
+              "displayName": "agent1_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "agent1_role_analysis",
+              "displayName": "agent1_role_analysis",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "candidate_id",
+              "displayName": "candidate_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "agent2_status",
+              "displayName": "agent2_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "agent3_status",
+              "displayName": "agent3_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "agent3_overall_fit_score",
+              "displayName": "agent3_overall_fit_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "agent3_fit_level",
+              "displayName": "agent3_fit_level",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "agent3_recommendation",
+              "displayName": "agent3_recommendation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "agent3_full_assessment",
+              "displayName": "agent3_full_assessment",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "failure_reason",
+              "displayName": "failure_reason",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false,
+          "column": [
+            {
+              "name": "run_timestamp",
+              "type": "date"
+            },
+            {
+              "name": "job_key"
+            },
+            {
+              "name": "country"
+            },
+            {
+              "name": "location"
+            },
+            {
+              "name": "role"
+            },
+            {
+              "name": "company"
+            },
+            {
+              "name": "search_cluster"
+            },
+            {
+              "name": "search_query"
+            },
+            {
+              "name": "date_posted"
+            },
+            {
+              "name": "linkedin_url"
+            },
+            {
+              "name": "scraper_match_score",
+              "type": "number"
+            },
+            {
+              "name": "opportunity_gate_score",
+              "type": "number"
+            },
+            {
+              "name": "talent_shortage_score",
+              "type": "number"
+            },
+            {
+              "name": "opportunity_status"
+            },
+            {
+              "name": "agent1_status"
+            },
+            {
+              "name": "agent1_role_analysis"
+            },
+            {
+              "name": "candidate_id"
+            },
+            {
+              "name": "agent2_status"
+            },
+            {
+              "name": "agent3_status"
+            },
+            {
+              "name": "agent3_overall_fit_score",
+              "type": "number"
+            },
+            {
+              "name": "agent3_fit_level"
+            },
+            {
+              "name": "agent3_recommendation"
+            },
+            {
+              "name": "agent3_full_assessment"
+            },
+            {
+              "name": "failure_reason"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        -1568,
+        1392
+      ],
+      "id": "6e15e5b4-2157-4d42-a8f6-e692034bb3bd",
+      "name": "Upset Rows1"
+    },
+    {
+      "parameters": {
+        "amount": 65
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -2000,
+        992
+      ],
+      "id": "8639e252-598d-48bd-8856-1a056294700c",
+      "name": "Wait",
+      "webhookId": "79a6cedf-d8bd-40bb-a33d-xxxxxxxxx"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "=https://docs.google.com/spreadsheets/d/1-3naPYSEPaIsIgb97wDQSrlT0fkQKc_ayyEEywlSwEw/edit?gid=324635879#gid=xxxxxxxx",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 324635879,
+          "mode": "list",
+          "cachedResultName": "Job Intake",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-3naPYSEPaIsIgb97wDQSrlT0fkQKc_ayyEEywlSwEw/edit#gid=324635879"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "ingestion_status",
+              "lookupValue": "NEW"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -3264,
+        1392
+      ],
+      "id": "839b1b23-fadb-4443-bddc-a28fe34e24e7",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleApi": {
+          "id": "xxxxxxxxxxxx",
+          "name": "Google Service Account account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $input.all();\n\nconst selected = [];\n\nfor (const item of rows) {\n  const row = item.json;\n\n  const ingestionStatus = String(\n    row.ingestion_status ?? \"\"\n  ).trim().toUpperCase();\n\n  const agent3Status = String(\n    row.agent3_status ?? \"\"\n  ).trim().toUpperCase();\n\n  // Only jobs that are newly ingested and have not\n  // already been successfully processed by Agent 3.\n  if (\n    ingestionStatus === \"NEW\" &&\n    agent3Status !== \"SUCCESS\"\n  ) {\n    selected.push(item);\n\n    if (selected.length >= 20) {\n      break;\n    }\n  }\n}\n\n// Nothing left to process.\n// Returning zero items gives the continuation logic\n// a clean termination condition.\nif (selected.length === 0) {\n  return [];\n}\n\nreturn selected;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -3008,
+        1248
+      ],
+      "id": "6ee08157-2660-4ea6-80ee-812e0c0f8113",
+      "name": "Select Agent 3 Batch"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nif (!items.length) {\n  throw new Error(\n    \"Prepare Agent 3 Context: Merge returned no items.\"\n  );\n}\n\n// First, look for the candidate profile in the current Merge input.\nlet candidateItem = items.find((item) => {\n  const data = item.json ?? {};\n\n  return (\n    String(data.candidate_profile ?? \"\").trim() !== \"\" &&\n    String(data.job_key ?? \"\").trim() === \"\"\n  );\n});\n\n// On subsequent continuous batches, Merge may contain only jobs.\n// Fall back to the already-executed candidate lookup node.\nlet candidate;\n\nif (candidateItem) {\n  candidate = candidateItem.json;\n} else {\n  try {\n    candidate = $(\"Get row(s)\").first().json;\n  } catch (error) {\n    throw new Error(\n      \"Prepare Agent 3 Context: Candidate profile was not found in Merge or Get row(s).\"\n    );\n  }\n}\n\nconst candidateId = String(\n  candidate.candidate_id ?? \"unknown\"\n).trim();\n\nconst candidateProfile = String(\n  candidate.candidate_profile ?? \"\"\n).trim();\n\nif (!candidateProfile) {\n  throw new Error(\n    \"Prepare Agent 3 Context: Candidate profile is empty.\"\n  );\n}\n\n// Identify the job records in the current Merge input.\nconst jobs = items.filter((item) => {\n  const data = item.json ?? {};\n\n  return String(data.job_key ?? \"\").trim() !== \"\";\n});\n\nif (!jobs.length) {\n  throw new Error(\n    \"Prepare Agent 3 Context: No job records found in Merge output.\"\n  );\n}\n\n// Build one Agent 3 context per job.\nreturn jobs.map((item, index) => {\n  const job = item.json;\n\n  const jobKey = String(\n    job.job_key ?? \"\"\n  ).trim();\n\n  if (!jobKey) {\n    throw new Error(\n      `Prepare Agent 3 Context: Job ${index + 1} has no job_key.`\n    );\n  }\n\n  return {\n    json: {\n      job_key: jobKey,\n\n      role: String(job.role ?? \"\"),\n      company: String(job.company ?? \"\"),\n      location: String(job.location ?? \"\"),\n      country: String(job.country ?? \"\"),\n\n      job_intelligence: {\n        ...job,\n      },\n\n      candidate_id: candidateId,\n\n      candidate_evidence: {\n        candidate_id: candidateId,\n        candidate_profile: candidateProfile,\n        cv_version: String(\n          candidate.cv_version ?? \"\"\n        ),\n      },\n\n      evidence_boundary:\n        \"Use only the supplied job data and candidate evidence. Do not invent candidate skills, tools, experience, responsibilities, domains, certifications, languages, or qualifications. Distinguish direct evidence, transferable evidence, missing evidence, and evidence gaps.\"\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2480,
+        1008
+      ],
+      "id": "b92da8a9-fcb5-4c21-bd01-591aaa94fb96",
+      "name": "Prepare Agent 3 Context"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -2736,
+        1008
+      ],
+      "id": "9c206e75-0f6f-44a0-9dbe-ed9e5edd1473",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -2240,
+        816
+      ],
+      "id": "fd55883d-3f02-4fbb-b1f1-cddecd47f552",
+      "name": "Loop Over Items"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get a document",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get row(s)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq - Agent 2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Agent 2 - CV Intelligence",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upsert row(s)": {
+      "main": [
+        []
+      ]
+    },
+    "Get row(s)": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get a document": {
+      "main": [
+        [
+          {
+            "node": "CV Version",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agent 2 - CV Intelligence": {
+      "main": [
+        [
+          {
+            "node": "Upsert row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CV Version": {
+      "main": [
+        [
+          {
+            "node": "Get Candidate Profile Cache",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Candidate Profile Cache": {
+      "main": [
+        [
+          {
+            "node": "CV Version Cached?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CV Version Cached?": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Agent 2 - CV Intelligence",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agent 3 - Groq HTTP": {
+      "main": [
+        [
+          {
+            "node": "Parse Role Fit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Role Fit": {
+      "main": [
+        [
+          {
+            "node": "Upset Rows1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upset Rows1": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Agent 3 - Groq HTTP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        []
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Select Agent 3 Batch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Agent 3 Context": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select Agent 3 Batch": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Prepare Agent 3 Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "0652b682-f684-4d3e-89f5-e5da351f7951",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ee6bd6839f3fb5cad2a76e9fa0c1c1d9ac9f4d603bd9fca8fd5727c91a8e48b8"
+  },
+  "nodeGroups": [],
+  "id": "08JHZuDk7lU2Sblv",
+  "tags": []
+}
